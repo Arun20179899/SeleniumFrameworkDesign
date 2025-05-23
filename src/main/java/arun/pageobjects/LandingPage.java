@@ -14,9 +14,9 @@ public class LandingPage {
         PageFactory.initElements(driver, this);
     }
 
-    //    WebElement userEmails = driver.findElement(By.id("userEmail"));
-//        driver.findElement(By.id("userPassword"))
-//        driver.findElement(By.id("login"))
+//        WebElement userEmails = driver.findElement(By.id("userEmail"));
+//        WebElement userPassword = driver.findElement(By.id("userPassword"));
+//        WebElement login = driver.findElement(By.id("login"));
     @FindBy(id = "userEmail")
     WebElement userEmail;
 
@@ -25,4 +25,17 @@ public class LandingPage {
 
     @FindBy(id = "login")
     WebElement login;
+
+    // Action Methods
+    public void enterUserName(String userName){
+        userEmail.sendKeys(userName);
+    }
+
+    public void enterUserPwd(String userPwd){
+        userPassword.sendKeys(userPwd);
+    }
+
+    public void clickLogin(){
+        login.click();
+    }
 }
