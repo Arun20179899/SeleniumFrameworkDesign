@@ -1,15 +1,16 @@
 package arun.pageobjects;
 
-import org.openqa.selenium.By;
+import arun.AbstractComponents.AbstractComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LandingPage {
+public class LandingPage extends AbstractComponent {
     WebDriver driver;
 
     public LandingPage(WebDriver driver) {
+        super(driver); // this will provide a driver life to AbstractComponenet Class
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -25,4 +26,21 @@ public class LandingPage {
 
     @FindBy(id = "login")
     WebElement login;
+
+    // create action methods
+
+    public ProductCatalog loginData(String userName, String userPwd) {
+        userEmail.sendKeys(userName);
+        userPassword.sendKeys(userPwd);
+        login.click();
+        //IMP..... if you sure once we login we are landing to product catalog page
+        // than you can create object of that class inside this method
+        // so this avoids object creation in the test class
+        ProductCatalog productCatalog = new ProductCatalog(driver);
+        return productCatalog;
+    }
+
+    public void goTo() {
+        driver.get("https://rahulshettyacademy.com/client");
+    }
 }
