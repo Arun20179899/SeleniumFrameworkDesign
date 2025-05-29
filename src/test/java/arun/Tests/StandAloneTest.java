@@ -1,4 +1,4 @@
-package arun;
+package arun.Tests;
 
 import arun.pageobjects.LandingPage;
 import org.openqa.selenium.By;

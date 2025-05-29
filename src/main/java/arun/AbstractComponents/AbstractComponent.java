@@ -29,6 +29,11 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.visibilityOfElementLocated(findBY));
     }
 
+    public void waitForWebElementToAppear(WebElement findBY) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(findBY));
+    }
+
     // Header is same for all pages in the application than we can declare "goToCart" inside the
     // "AbstractComponent" so we can reuse this for all pages
     public CartPage goToCart() {
