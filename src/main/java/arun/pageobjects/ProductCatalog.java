@@ -1,7 +1,6 @@
 package arun.pageobjects;
 
 import arun.AbstractComponents.AbstractComponent;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,6 +49,11 @@ public class ProductCatalog extends AbstractComponent {
         prod.findElement(addToCart).click();
         waitForElementToAppear(toastMessage);
         waitForElementToDisappear(spinner);
+    }
+
+    public boolean verifyProductDisplay(String productName) {
+        boolean match = getProductByName(productName).getText().equalsIgnoreCase(productName);
+        return match;
     }
 
 }

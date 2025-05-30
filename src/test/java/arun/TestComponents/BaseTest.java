@@ -21,7 +21,7 @@ public class BaseTest {
 
     public WebDriver initializeDriver() throws IOException {
         prop = new Properties();
-        fis = new FileInputStream("C:\\Users\\lenovo\\IdeaProjects\\SeleniumFrameworkDesign\\src\\main\\resources\\GlobalData.properties");
+        fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\GlobalData.properties");
         prop.load(fis);
         String browserName = prop.getProperty("browser");
 
@@ -35,7 +35,8 @@ public class BaseTest {
         driver.manage().window().maximize();
         return driver;
     }
-    @BeforeMethod
+
+    @BeforeMethod(alwaysRun = true)
     public LandingPage lunchApplication() throws IOException {
         initializeDriver();
         landingPage = new LandingPage(driver);
@@ -44,8 +45,8 @@ public class BaseTest {
         return new LandingPage(driver);
     }
 
-    @AfterMethod
-    public void closeBrowser(){
+    @AfterMethod(alwaysRun = true)
+    public void closeBrowser() {
         driver.close();
     }
 }

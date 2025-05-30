@@ -2,23 +2,18 @@ package arun.Tests;
 
 import arun.TestComponents.BaseTest;
 import arun.pageobjects.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.List;
 
-public class SubmitOrderTest extends BaseTest {
+public class OrderProductTest extends BaseTest {
+    String productName = "ZARA COAT 3";
+    String countryName = "India";
 
     @Test
     public void submitOrder() throws IOException, InterruptedException {
-        String productName = "ZARA COAT 3";
-        String countryName = "India";
-        ProductCatalog productCatalogPage = landingPage.loginData("ARUN1998.AG12@GMAIL.COM","Es0ft@2025");
-        List<WebElement> products = productCatalogPage.getProductList();
+        ProductCatalog productCatalogPage = landingPage.loginData("ARUN1998.AG12@GMAIL.COM", "Es0ft@2025");
         productCatalogPage.addProductToCart(productName);
         CartPage cartpage = productCatalogPage.goToCart();
         boolean match = cartpage.verifyProductDisplay(productName);
@@ -28,8 +23,14 @@ public class SubmitOrderTest extends BaseTest {
         ConfirmationPage confirmationpage = checkoutpage.submitOrder();
         String confirmMessage = confirmationpage.getConfirmationMessage();
         Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
+    }
 
-
+    @Test(dependsOnMethods = {"submitOrder"})
+    public void orderHistoryTest() {
+        ProductCatalog productCatalogPage = landingPage.loginData("ARUN1998.AG12@GMAIL.COM", "Es0ft@2025");
+        OrderPage orderpage = productCatalogPage.goToOrder();
+        boolean match = orderpage.verifyDisplayProduct(productName);
+        Assert.assertTrue(match);
 
     }
 }
