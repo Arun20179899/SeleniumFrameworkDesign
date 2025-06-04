@@ -2,10 +2,14 @@ package arun.Tests;
 
 import arun.TestComponents.BaseTest;
 import arun.pageobjects.*;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +39,14 @@ public class OrderProductTest extends BaseTest {
         boolean match = orderpage.verifyDisplayProduct(productName);
         Assert.assertTrue(match);
 
+    }
+
+    public String getScreenShot(String testcaseName) throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        File file = new File(System.getProperty("user.dir") + "//reports//" + testcaseName + ".png");
+        FileUtils.copyFile(source, file);
+        return System.getProperty("user.dir") + "//reports//" + testcaseName + ".png";
     }
 
 //    @DataProvider
