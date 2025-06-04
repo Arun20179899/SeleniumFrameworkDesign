@@ -5,6 +5,8 @@ import arun.pageobjects.ProductCatalog;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -28,7 +30,7 @@ public class BaseTest {
 
     public WebDriver initializeDriver() throws IOException {
         prop = new Properties();
-        fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\GlobalData.properties");
+        fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\java\\arun\\resources\\GlobalData.properties");
         prop.load(fis);
         String browserName = prop.getProperty("browser");
 
@@ -53,6 +55,14 @@ public class BaseTest {
         });
         return data;
 
+    }
+
+    public String getScreenShot(String testcaseName) throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        File file = new File(System.getProperty("user.dir") + "//reports//" + testcaseName + ".png");
+        FileUtils.copyFile(source, file);
+        return System.getProperty("user.dir") + "//reports//" + testcaseName + ".png";
     }
 
     @BeforeMethod(alwaysRun = true)
